@@ -1,5 +1,3 @@
-$(":checkbox").prop('checked', false).parent().removeClass('active');
-
 if (JSON.parse(localStorage.getItem("task"))) {
     var sData = JSON.parse(localStorage.getItem("task"));
     for (i = 0; i < sData.length; i++) {
