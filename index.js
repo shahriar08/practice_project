@@ -7,11 +7,15 @@ if (JSON.parse(localStorage.getItem("data"))) {
     row.insertCell(1).innerHTML = sData[i].age;
     row.insertCell(2).innerHTML = sData[i].gender;
     row.insertCell(3).innerHTML = sData[i].city;
+    
+
+    var actionCell = row.insertCell(4);
+    actionCell.innerHTML='<button onClick="EditData">Edit</button>'
   }
 }
 
 // Set data to localstorage
-function LocalDataStore() {
+function LocalDataStore(index) {
   var name = document.getElementById("name").value;
   var age = document.getElementById("age").value;
   var gender = document.getElementById("gender").value;
@@ -30,4 +34,10 @@ function LocalDataStore() {
     localStorageData.push(dataData);
     localStorage.setItem("data", JSON.stringify(localStorageData));
   }
+}
+
+function EditData(index){
+  var row = document.getElementById("table");
+  row.deleteRow(index);
+
 }
