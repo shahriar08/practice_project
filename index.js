@@ -54,6 +54,11 @@
 //   selectedRow.cells[3].innerHTML = formData.city;
 // }
 
+/* {
+const finalSentence = mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase());
+
+}*/
+
 // //load data to localstorage
 
 let tableData1 = {
@@ -75,16 +80,33 @@ if (JSON.parse(localStorage.getItem("data"))) {
 
     // var actionCell = row.insertCell(4);
     row.insertCell(4).innerHTML =
-      "<button id='button' onCLick='tableText()'>Edit</button>";
+      // "<button id='button' onCLick='tableText()'>Edit</button>";
+      "<button id='dlt-button' onCLick='deleteData()'>Delete</button>";
+    row.insertCell(5).innerHTML =
+      '<div class="spinner-grow" role="status"><span class="visually-hidden">Loading...</span></div>';
   }
 }
 
+// if (document.getElementById("male")) {
+//   gender = document.getElementById("male").value;
+// } else {
+//   gender = document.getElementById("female").value;
+// }
 // Set data to localstorage
-function LocalDataStore(index) {
+function LocalDataStore(e) {
+  // e.preventDefault();
+
   var name = document.getElementById("name").value;
   var age = document.getElementById("age").value;
-  var gender = document.getElementById("gender").value;
+  // var gender = document.getElementById("gender").value;``
+  var gender = document.querySelector('input[name="gender"]:checked').value;
   var city = document.getElementById("city").value;
+
+  // if (document.getElementById("gender").checked) {
+  //   gender = document.getElementsByClassName("male").value;
+  // } else {
+  //   gender = document.getElementsByClassName("female").value;
+  // }
 
   var dataData = {
     name: name,
@@ -92,7 +114,7 @@ function LocalDataStore(index) {
     gender: gender,
     city: city,
   };
-
+  console.log(dataData);
   document.getElementById("btn").innerHTML === "Update Old Data" &&
     updateOldData();
 
@@ -126,43 +148,43 @@ if (table) {
     };
   }
 }
-function tableText(tableRow) {
-  let btn1 = document.getElementById("btn");
-  // btn1.style.display = "none";
-  btn1.innerHTML = "Update Old Data";
-  btn1.setAttribute("class", "btn btn-danger");
 
-  let nameInput = document.getElementById("name");
-  let ageInput = document.getElementById("age");
-  let genderInput = document.getElementById("gender");
-  let cityInput = document.getElementById("city");
+function deleteData() {
+  let deleteData = document.getElementById("dlt-button");
 
-  // btn1.setAttribute("onclick", "update2()");
-
-  tableData1.name = tableRow.childNodes[0].innerHTML;
-  tableData1.age = tableRow.childNodes[1].innerHTML;
-  tableData1.gender = tableRow.childNodes[2].innerHTML;
-  tableData1.city = tableRow.childNodes[3].innerHTML;
-  // obj: { name: name, age: age, gender: gender, city: city },
-
-  nameInput.value = tableData1.name;
-  ageInput.value = tableData1.age;
-  genderInput.value = tableData1.gender;
-  cityInput.value = tableData1.city;
-  console.log(tableData1);
-
-  // if(tableData1){
-
-  // }
-  // const btn = document.getElementById("btn");
-  // btn.addEventListener("click", function handleClick() {
-  //   btn.textContent = "button clicked";
-  //   console.log(
-  //     "🚀 ~ file: index.js ~ line 76 ~ handleClick ~ btn.textContent ",
-  //     btn
-  //   );
-  // });
+  // deleteData.style.display = "none";
+  deleteData.innerHTML = "Deleted";
+  deleteData.setAttribute("class", "btn btn-danger");
+  localStorage.setItem("data", JSON.stringify(sData));
+  localStorage.removeItem("data");
 }
+// function tableText(tableRow) {
+//   let btn1 = document.getElementById("btn");
+
+//   btn1.style.display = "none";
+//   btn1.innerHTML = "Update Old Data";
+//   btn1.setAttribute("class", "btn btn-danger");
+
+//   let nameInput = document.getElementById("name");
+//   let ageInput = document.getElementById("age");
+//   let genderInput = document.getElementById("gender");
+//   let cityInput = document.getElementById("city");
+
+//   // btn1.setAttribute("onclick", "update2()");
+
+//   tableData1.name = tableRow.childNodes[0].innerHTML;
+//   tableData1.age = tableRow.childNodes[1].innerHTML;
+//   tableData1.gender = tableRow.childNodes[2].innerHTML;
+//   tableData1.city = tableRow.childNodes[3].innerHTML;
+//   // obj: { name: name, age: age, gender: gender, city: city },
+
+//   nameInput.value = tableData1.name;
+//   ageInput.value = tableData1.age;
+//   genderInput.value = tableData1.gender;
+//   cityInput.value = tableData1.city;
+//   console.log(tableData1);
+// }
+
 // if (!JSON.parse(localStorage.getItem("data"))) {
 //   localStorage.setItem("data", JSON.stringify([tableData1]));
 // } else {
